@@ -1,4 +1,4 @@
-use pnet::util::{MacAddr, checksum};
+use pnet::util::{MacAddr, checksum, ipv4_checksum, ipv6_checksum};
 use std::net::IpAddr;
 
 /// Constantes réseau de base
