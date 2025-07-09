@@ -32,14 +32,25 @@ pub fn format_mac_addr(mac: &MacAddr) -> String {
             mac.octets()[3], mac.octets()[4], mac.octets()[5])
 }
 
-/// Parsing d'adresse MAC (utilise MacAddr::parse_str de pnet::util)
-pub fn parse_mac_addr(mac_str: &str) -> Result<MacAddr, String> {
+/// Represents an error which occured whilst parsing a MAC address
+pub enum ParseMacAddrErr {
+    TooManyComponents,
+    TooFewComponents,
+    InvalidComponent,
+}
+
+/// Parsing d'adresse MAC
+pub fn parse_mac_addr(mac_str: &str) -> Result<MacAddr, ParseMacAddrErr> {
     MacAddr::parse_str(mac_str)
-        .map_err(|e| format!("Erreur parsing MAC: {}", e))
+        .map_err(|e| match e {
+            pnet::util::ParseMacAddrErr::TooManyComponents => ParseMacAddrErr::TooManyComponents,
+            pnet::util::ParseMacAddrErr::TooFewComponents => ParseMacAddrErr::TooFewComponents,
+            pnet::util::ParseMacAddrErr::InvalidComponent => ParseMacAddrErr::InvalidComponent,
+        })
 }
 
 /// Calcul de checksum simple (utilise checksum de pnet::util)
-pub fn calculate_simple_checksum(data: &[u8]) -> u16 {
+pub fn calculate_checksum(data: &[u8]) -> u16 {
     checksum(data, 0) // pas de skipword
 }
 
