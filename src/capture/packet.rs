@@ -34,3 +34,4 @@ pub enum ParseError {
     UnsupportedProtocol,
     ChecksumMismatch,
 }
+
