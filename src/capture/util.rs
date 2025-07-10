@@ -32,13 +32,6 @@ pub fn format_mac_addr(mac: &MacAddr) -> String {
             mac.octets()[3], mac.octets()[4], mac.octets()[5])
 }
 
-/// Represents an error which occured whilst parsing a MAC address
-pub enum ParseMacAddrErr {
-    TooManyComponents,
-    TooFewComponents,
-    InvalidComponent,
-}
-
 /// Parsing d'adresse MAC
 pub fn parse_mac_addr(mac_str: &str) -> Result<MacAddr, ParseMacAddrErr> {
     MacAddr::parse_str(mac_str)
@@ -47,6 +40,13 @@ pub fn parse_mac_addr(mac_str: &str) -> Result<MacAddr, ParseMacAddrErr> {
             pnet::util::ParseMacAddrErr::TooFewComponents => ParseMacAddrErr::TooFewComponents,
             pnet::util::ParseMacAddrErr::InvalidComponent => ParseMacAddrErr::InvalidComponent,
         })
+}
+
+/// Represents an error which occured whilst parsing a MAC address
+pub enum ParseMacAddrErr {
+    TooManyComponents,
+    TooFewComponents,
+    InvalidComponent,
 }
 
 /// Calcul de checksum simple (utilise checksum de pnet::util)
