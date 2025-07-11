@@ -1,7 +1,7 @@
 pub struct Packet {
     pub timestamp: DateTime,
     pub lenght: usize,
-    pub data: Vec<8>,
+    pub data: Vec<u8>,
     pub ethernet: Option<EthernetPacket>,
     pub ip: Option<IpPacket>,
     pub transport: Option<TransportPacket>,
@@ -18,7 +18,7 @@ pub struct EthernetHeader {
 pub struct IpHeader {
     pub version: u8,
     pub src_ip: IpAddr,
-    pub dist_ip: IpAddr,
+    pub dst_ip: IpAddr,
     pub protocol: u8,
 }
 
