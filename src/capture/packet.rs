@@ -10,7 +10,7 @@ pub struct Packet {
     pub ip: Option<IpPacket>,
     pub transport: Option<TransportPacket>,
 }
-
+    
 /// Network header
 
 pub struct EthernetHeader {
